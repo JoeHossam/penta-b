@@ -39,7 +39,7 @@ The frontend part includes 2 parts:
 
 -   a simple map to demonstrate the rover's and obstacles' positions
 
-> **_NOTE:_** The map will updates when the input command changes
+> **_NOTE:_** The map only updates when the input command changes
 
 ## Testing
 
