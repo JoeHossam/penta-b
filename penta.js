@@ -1,7 +1,7 @@
+// Command Query
 const input = 'rflfffff';
 
-const headings = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
-
+// Obstacles Input
 const obstaclesInput = [
     [1, 4],
     [3, 5],
@@ -14,6 +14,8 @@ const obstacles = {};
 for (let i = 0; i < obstaclesInput.length - 1; i++) {
     obstacles[obstaclesInput[i].toString()] = () => {};
 }
+
+const headings = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
 
 const pos = {
     x: 0,
