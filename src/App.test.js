@@ -7,7 +7,7 @@ const setup = () => {
     return { commandField, ...utils };
 };
 
-test("it shouldn't allow any letters besides fblr", () => {
+test("command query shouldn't allow any letters besides fblr", () => {
     const { commandField } = setup();
 
     fireEvent.change(commandField, { target: { value: 'shkdfjhlaskdj' } });
@@ -16,7 +16,7 @@ test("it shouldn't allow any letters besides fblr", () => {
     fireEvent.change(commandField, { target: { value: 'ffrff' } });
     expect(commandField.value).toBe('ffrff');
 });
-test('test command query', () => {
+test('moving to specified postion', () => {
     const { commandField, getByTestId } = setup();
     fireEvent.change(commandField, { target: { value: 'ffrffrfflff' } });
     const position = getByTestId('position');

@@ -15,8 +15,10 @@ class App extends React.Component {
             ySize: 25,
         };
         this.pos = {
-            x: Math.round(this.state.xSize / 2) - 1,
-            y: Math.round(this.state.ySize / 2) - 1,
+            // x: Math.round(this.state.xSize / 2) - 1,
+            // y: Math.round(this.state.ySize / 2) - 1,
+            x: 12,
+            y: 12,
             heading: 3,
         };
         this.walkedWay = [];
@@ -99,6 +101,7 @@ class App extends React.Component {
         const mainString = [];
         let x = Math.sign(desiredPos.x - currentPos.x);
         let y = Math.sign(desiredPos.y - currentPos.y);
+        console.log(desiredPos.x, currentPos.x);
         while (y + x !== 0) {
             const desiredHeading = this.directions['y' + y + 'x' + x];
             while (desiredHeading !== currentPos.heading) {
@@ -131,8 +134,10 @@ class App extends React.Component {
             mainString.push('f');
             x = Math.sign(desiredPos.x - currentPos.x);
             y = Math.sign(desiredPos.y - currentPos.y);
+            console.log('x: ', desiredPos.x, currentPos.x);
+            console.log('y: ', desiredPos.y, currentPos.y);
         }
-        return mainString;
+        return mainString.join('');
     };
 
     reset = () => {
@@ -166,7 +171,7 @@ class App extends React.Component {
         return (
             <main className="main">
                 <section className="settings">
-                    <label htmlFor="inpu">Input Command</label> <br />
+                    <h2>Input Command</h2>
                     <input
                         aria-label="command"
                         type="text"
@@ -331,55 +336,98 @@ const List = ({ state, setState }) => {
     return (
         <>
             <h2>Obstacles</h2>
-            <ul>
-                {state.obstaclesInput.map((item, index) => {
-                    return (
-                        <li>
+            <table>
+                <thead>
+                    <tr>
+                        <td>X</td>
+                        <td>Y</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {state.obstaclesInput.map((item, index) => {
+                        return (
+                            <tr>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={item[0]}
+                                        onChange={(e) =>
+                                            handleChange(
+                                                e.target.value,
+                                                index,
+                                                0
+                                            )
+                                        }
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={item[1]}
+                                        onChange={(e) =>
+                                            handleChange(
+                                                e.target.value,
+                                                index,
+                                                1
+                                            )
+                                        }
+                                    />
+                                </td>
+                                <td>
+                                    <button onClick={() => handleDelete(index)}>
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        );
+                    })}
+                    <tr>
+                        <td>
+                            <hr />
+                        </td>
+                        <td>
+                            <hr />
+                        </td>
+                        <td>
+                            <hr />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <input
+                                aria-label="new-obs-x"
                                 type="text"
-                                value={item[0]}
-                                onChange={(e) =>
-                                    handleChange(e.target.value, index, 0)
-                                }
+                                value={newObs[0]}
+                                onChange={(e) => {
+                                    if (!/^[0-9]+$/.test(e.target.value))
+                                        return;
+                                    setNewObs([e.target.value, newObs[1]]);
+                                }}
                             />
+                        </td>
+                        <td>
                             <input
+                                aria-label="new-obs-y"
                                 type="text"
-                                value={item[1]}
-                                onChange={(e) =>
-                                    handleChange(e.target.value, index, 1)
-                                }
+                                value={newObs[1]}
+                                onChange={(e) => {
+                                    if (!/^[0-9]+$/.test(e.target.value))
+                                        return;
+                                    setNewObs([newObs[0], e.target.value]);
+                                }}
                             />
-                            <button onClick={() => handleDelete(index)}>
-                                Remove
+                        </td>
+                        <td>
+                            <button
+                                aria-label="new-obs-button"
+                                onClick={handleAdd}
+                            >
+                                Add New Obstacle
                             </button>
-                        </li>
-                    );
-                })}
-                <hr />
-                <li>
-                    <input
-                        aria-label="new-obs-x"
-                        type="text"
-                        value={newObs[0]}
-                        onChange={(e) => {
-                            if (!/^[0-9]+$/.test(e.target.value)) return;
-                            setNewObs([e.target.value, newObs[1]]);
-                        }}
-                    />
-                    <input
-                        aria-label="new-obs-y"
-                        type="text"
-                        value={newObs[1]}
-                        onChange={(e) => {
-                            if (!/^[0-9]+$/.test(e.target.value)) return;
-                            setNewObs([newObs[0], e.target.value]);
-                        }}
-                    />
-                    <button aria-label="new-obs-button" onClick={handleAdd}>
-                        Add New Obstacle
-                    </button>
-                </li>
-            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </>
     );
 };
@@ -387,19 +435,24 @@ const List = ({ state, setState }) => {
 const CalculatePath = ({ pos, generateRoute }) => {
     const [solution, setSolution] = React.useState('');
     const [newObs, setNewObs] = React.useState([]);
-    const handleCalculate = () => [
+    const handleCalculate = () => {
         setSolution(
-            generateRoute(pos, { x: newObs[0], y: newObs[1] }).join('')
-        ),
-    ];
+            generateRoute(pos, {
+                x: newObs[1],
+                y: newObs[0],
+            })
+        );
+    };
     return (
         <>
-            Move to: <br />
+            <h2>Move to:</h2>
+            X:
             <input
                 type="text"
                 value={newObs[0]}
                 onChange={(e) => setNewObs([e.target.value, newObs[1]])}
             />
+            Y:
             <input
                 type="text"
                 value={newObs[1]}

@@ -25,7 +25,7 @@ How to run:
 3. You can modify the **command query** and the **obstacles** from the first few lines of code.
     > **_NOTE:_** The position of the hover is assumed to be (0,0) and facing NORTH by default.\
 4. `generateRoute()` To calculate a route from the current hover position
-    > **_Example:_** generateRoute({...pos}, {x:12, y: 12}) x and y are the desired postion
+    > **_Example:_** `generateRoute({...pos}, {x:12, y: 12})` x and y are the desired postion
 
 ### React
 
@@ -39,13 +39,15 @@ The frontend part includes 2 parts:
 
 -   a simple map to demonstrate the rover's and obstacles' positions
 
+> **_NOTE:_** The map will updates when the input command changes
+
 ## Testing
 
 Testing has been done in the react part using `@testing-library`.\
 The tests can be found in `src/App.test.js` in there you can find 4 tests:
 
-1. it shouldn't allow any letters besides fblr
-2. test command query
+1. command query shouldn't allow any letters besides fblr
+2. moving to specified postion
 3. obstacles input only accept numbers
 4. add obstacle & smash into it
 
