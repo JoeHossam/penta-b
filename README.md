@@ -22,7 +22,12 @@ A small interface is built to control the command query, obstacles array and the
 ## Testing
 
 Testing has been done in the react part using `@testing-library`.\
-The tests can be found in `src/App.test.js` in there you can find 4 tests: 1. it shouldn't allow any letters besides fblr 2. test command query 3. obstacles input only accept numbers 4. add obstacle & smash into it
+The tests can be found in `src/App.test.js` in there you can find 4 tests:
+
+1. it shouldn't allow any letters besides fblr
+2. test command query
+3. obstacles input only accept numbers
+4. add obstacle & smash into it
 
 You can run the tests using run using `npm test` as shown in the next section.
 
