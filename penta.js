@@ -89,9 +89,7 @@ const generateRoute = (currentPos, desiredPos) => {
     const mainString = [];
     let x = Math.sign(desiredPos.x - currentPos.x);
     let y = Math.sign(desiredPos.y - currentPos.y);
-    console.log(currentPos);
     while (y + x !== 0) {
-        console.log(currentPos);
         const desiredHeading = directions['y' + y + 'x' + x];
         while (desiredHeading !== currentPos.heading) {
             mainString.push('r');
@@ -124,7 +122,7 @@ const generateRoute = (currentPos, desiredPos) => {
         x = Math.sign(desiredPos.x - currentPos.x);
         y = Math.sign(desiredPos.y - currentPos.y);
     }
-    console.log(mainString, currentPos);
+    return mainString.join('');
 };
 
 const navigationObject = {
@@ -146,4 +144,3 @@ for (order of input) {
         break;
     }
 }
-console.log(walkedWay);
