@@ -168,7 +168,7 @@ class App extends React.Component {
                 <section className="settings">
                     <label htmlFor="inpu">Input Command</label> <br />
                     <input
-                        data-testid="command"
+                        aria-label="command"
                         type="text"
                         id="inpu"
                         value={this.state.input}
@@ -310,6 +310,8 @@ const Table = ({ x, y, tableState }) => {
 const List = ({ state, setState }) => {
     const [newObs, setNewObs] = React.useState([0, 0]);
     const handleChange = (val, index, innerIndex) => {
+        val = parseInt(val);
+        if (!/^[0-9]+$/.test(val)) return;
         const newArr = state.obstaclesInput;
         newArr[index].splice(innerIndex, 1, val);
         setState({ ...state, obstaclesInput: newArr });
@@ -356,16 +358,26 @@ const List = ({ state, setState }) => {
                 <hr />
                 <li>
                     <input
+                        aria-label="new-obs-x"
                         type="text"
                         value={newObs[0]}
-                        onChange={(e) => setNewObs([e.target.value, newObs[1]])}
+                        onChange={(e) => {
+                            if (!/^[0-9]+$/.test(e.target.value)) return;
+                            setNewObs([e.target.value, newObs[1]]);
+                        }}
                     />
                     <input
+                        aria-label="new-obs-y"
                         type="text"
                         value={newObs[1]}
-                        onChange={(e) => setNewObs([newObs[0], e.target.value])}
+                        onChange={(e) => {
+                            if (!/^[0-9]+$/.test(e.target.value)) return;
+                            setNewObs([newObs[0], e.target.value]);
+                        }}
                     />
-                    <button onClick={handleAdd}>Add New Obstacle</button>
+                    <button aria-label="new-obs-button" onClick={handleAdd}>
+                        Add New Obstacle
+                    </button>
                 </li>
             </ul>
         </>
