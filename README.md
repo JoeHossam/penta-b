@@ -18,7 +18,7 @@ A frontend implementation has been done using react but for more **robust** vers
 
 ### Vanila JavaScript
 
-#### How to run
+How to run:
 
 1. This part can be found in file `penta.js`.\
 2. simply copy and paste the code into any browser console and run.\
@@ -29,17 +29,15 @@ A frontend implementation has been done using react but for more **robust** vers
 
 ### React
 
-#### Pannel
+The frontend part includes 2 parts:
 
-The frontend has a pannel where you can:
+-   a pannel where you can:
 
--   Pass command query
--   Edit obstacles postions
--   Reset
+    -   Pass command query
+    -   Edit obstacles postions
+    -   Reset
 
-#### Map
-
-This is a simple map to demonstrate the rover's and obstacles' positions
+-   a simple map to demonstrate the rover's and obstacles' positions
 
 ## Testing
 
